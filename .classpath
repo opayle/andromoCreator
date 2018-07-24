@@ -2,11 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/apache-commons-lang.jar"/>
-	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/commons-configuration-1.7.jar"/>
 	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/opencv-2.4.1.jar"/>
-	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/poi-ooxml-3.5-beta5.jar"/>
-	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/poi-3.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

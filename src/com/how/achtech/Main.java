@@ -5,21 +5,29 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Main implements ActionListener {
+	private static final String PACK_SUFFIX = "com.";
+	private static final String PACK_PREFIX = ".achtech";
 	private String excelUri;
 	JFrame f = new JFrame();// creating instance of JFrame
 
@@ -108,35 +116,65 @@ public class Main implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("Extraire")) {
-			try {
-	        // Get the workbook instance for XLS file
-				XSSFWorkbook workbook = new XSSFWorkbook(excelUri);
-	 
-	        // Get first sheet from the workbook
-	        XSSFSheet sheet = workbook.getSheetAt(0);
-	 
-	        // Get iterator to all the rows in current sheet
-	        Iterator<Row> rowIterator = sheet.iterator();
-	 
-	        while (rowIterator.hasNext()) {
-	            Row row = rowIterator.next();
-	            // Get iterator to all cells of current row
-	            Iterator<Cell> cellIterator = row.cellIterator();
-	 
-	            while (cellIterator.hasNext()) {
-	                Cell cell = cellIterator.next();	 
-	                System.out.print(cell.getStringCellValue());
-	                System.out.print("\t");
-	 
-	            }
-	            System.out.println("");
-	        }			
+			List<ExcelStrecture> list = getDataFromExcel(excelUri);
+			for(ExcelStrecture data : list){
+				Frame f = new Frame(data);
 			
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
 		}
-
 	}
+
+	public List<ExcelStrecture>  getDataFromExcel(String excelUri){
+		DataFormatter dataFormatter = new DataFormatter();
+		List<ExcelStrecture> list = new ArrayList<ExcelStrecture>();
+		List<List<String>> rows = new ArrayList<List<String>>(); 
+		int indexRow = 0;
+		try {
+			FileInputStream fichier = new FileInputStream(new File(excelUri));
+		       //créer une instance workbook qui fait référence au fichier xlsx 
+		       XSSFWorkbook wb = new XSSFWorkbook(fichier);
+		       XSSFSheet sheet = wb.getSheetAt(0);
+		       FormulaEvaluator formulaEvaluator = 
+	                     wb.getCreationHelper().createFormulaEvaluator();
+		       
+		    // Create a DataFormatter to format and get each cell's value as String
+		       for (Row ligne : sheet) {//parcourir les lignes
+		    	   // Now let's iterate over the columns of the current row
+		            Iterator<Cell> cellIterator = ligne.cellIterator();
+		            List<String> row = new ArrayList<>(); 
+		            while (cellIterator.hasNext()) {
+		                Cell cell = cellIterator.next();
+		                String cellValue = dataFormatter.formatCellValue(cell);
+		                row.add(cellValue);
+		            }
+		            if(indexRow!=0) rows.add(row);
+		            indexRow++;
+		       }
+		          for(List<String> ligne : rows)  {
+		            ExcelStrecture excel = new ExcelStrecture();
+		    	   if(ligne.get(0) != null ){
+		    		   String wiki = ligne.get(0);
+		    		   excel.setWikihowUrl(wiki);
+		    		   String pack = PACK_SUFFIX+wiki.substring(24).replace("-", ".").replace("?", "").trim().replace(" ", ".")+PACK_PREFIX;
+		    		   excel.setPackageName(pack.toLowerCase());
+		    		   String title = wiki.substring(24).replace("-", " ").replace("?", "");
+		    		   excel.setTitre(title);
+		    		   System.out.println(title);
+		    	   }
+		    	   if(ligne.get(1) != null ) excel.setLogoUrl(ligne.get(1));
+		    	   if(ligne.get(2) != null ) excel.setBackgroundUrl(ligne.get(2));
+		    	   if(ligne.get(3) != null ) excel.setDescription(ligne.get(3));
+		    	   if(ligne.get(4) != null ) excel.setKeyword(ligne.get(4).length()>80?ligne.get(4).substring(0, 80):ligne.get(4));
+		    	   list.add(excel);
+		       }
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return list;
+	}
+
 }

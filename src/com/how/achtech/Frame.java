@@ -43,6 +43,7 @@ public class Frame implements ActionListener {
 	static int widthWindows = 1500;
 	static int height =250;
 	int y = 150;
+	int y2=150;
 	int xStartRadio=150,yStartRadio = y;
 	
 	boolean maxAccesed = false;
@@ -66,7 +67,20 @@ public class Frame implements ActionListener {
 	JLabel lblImageLogo  = new JLabel();
 	JLabel lblImagebBackground  = new JLabel();
 	
-	
+
+	JLabel labelRTitle = new JLabel("Titre : ");
+	JLabel labelRPackage = new JLabel("Package : ");
+	JLabel labelRDescription = new JLabel("Description : ");
+	JLabel labelRKeyword = new JLabel("Key Word");
+	JLabel labelRPrivacyLaw = new JLabel("Privacy");
+
+
+	JButton btRTitle = new JButton();
+	JButton btRPackage = new JButton();
+	JButton btRDescription = new JButton();
+	JButton btRKeyword = new JButton();
+	JButton btRPrivacyLaw = new JButton();
+
 	JCheckBox chResize = new JCheckBox("Resize 512*512");
 	JCheckBox chRoundedCorner = new JCheckBox("Rounded corner");
 	JCheckBox chBorder = new JCheckBox("Border");
@@ -94,17 +108,16 @@ public class Frame implements ActionListener {
 	List<JButton> btTxt = new ArrayList<JButton>();
 	List<JRadioButton> radios = new ArrayList<JRadioButton>();
 
-	public Frame(String wikiHowUrl,String logoUrl,String backgroundUrl) {
-		txtLinkWikiHow.setText(wikiHowUrl);
-		txtLinkLogo.setText(logoUrl);
-		txtLinkBackground.setText(backgroundUrl);
-		
+	public Frame(ExcelStrecture data) {
 		contain = f.getContentPane();
+
+		// First column 
+		txtLinkWikiHow.setText(data.getWikihowUrl());
+		txtLinkLogo.setText(data.getLogoUrl());
+		txtLinkBackground.setText(data.getBackgroundUrl());
+		
 		labeltitre.setBounds(5, 5, widthWindows-15, 90);
 		labelLink.setBounds(50, y, 100, 30);
-		
-		
-		
 		txtLinkWikiHow.setBounds(150, y, widthData - 200, 30);
 		y+=50;
 		labelDestination.setBounds(50, y, 100, 30);
@@ -149,7 +162,7 @@ public class Frame implements ActionListener {
 		y+=50;
 		bEditCategorie.setBounds(50, y, 100, 30);
 
-		selectedCategorie = categories.length>0 ? categories[0] :"";
+		selectedCategorie = categories.length>0 ? categories[categories.length-1] :"";
 		yStartRadio = y;
 		for(int i=0;i<categories.length;i++){
 			JRadioButton radio = new JRadioButton(categories[i]);
@@ -173,12 +186,54 @@ public class Frame implements ActionListener {
 		bCancel.setBounds(widthData / 2 + 20, height - 100, 100, 40);
 		labelColumn.setBounds(widthData-10, 100, 10, height-145);
 		
-		lblImageLogo.setBounds(widthData+10,height-300 , 256, 256);
-		lblImagebBackground.setBounds(widthData+276,height-300 , 512, 250);
+		//SECOND COLUMN
+		String privacyPolicy = "We care about your privacy and data security. We keep this app free by showing ads. We’ll partner with Google and use a unique identifier on your device to serve only non-personalized ads.";
+		privacyPolicy += "\nFor information about how Google uses your mobile identifier please visit:";
+		privacyPolicy += "\nhttps://policies.google.com/technologies/partner-sites";
+		
+		btRTitle.setText(data.getTitre());
+		btRPrivacyLaw.setText(privacyPolicy);
+		btRPackage.setText(data.getPackageName());
+		btRDescription.setText(data.getDescription());
+		btRKeyword.setText(data.getKeyword());
 		
 		
-		if(radios.size()>0) radios.get(0).setSelected(true);
-		chBorder.setSelected(true);
+		
+		
+		int x2 = widthData+10,wLabel = 100,wButton = 200,x3=x2+3*wLabel+20;
+		labelRTitle.setBounds(x2,y2,wLabel,30);
+		btRTitle.setBounds(x2+wLabel+10,y2,wButton,30);
+		
+		labelRPrivacyLaw.setBounds(x3,y2,wLabel,30);
+		btRPrivacyLaw.setBounds(x3+wLabel+10,y2,wButton,30);
+		
+		
+		y2+=50;
+		labelRPackage.setBounds(x2,y2,wLabel,30);
+		btRPackage.setBounds(x2+wLabel+10,y2,wButton,30);
+		
+		labelRDescription.setBounds(x3,y2,wLabel,30);
+		btRDescription.setBounds(x3+wLabel+10,y2,wButton,30);
+
+		y2+=50;
+		labelRKeyword.setBounds(x2,y2,wLabel,30);
+		btRKeyword.setBounds(x2+110,y2,wButton,30);
+		
+		y2+=50;
+		
+		
+		labelRTitle.setForeground(Color.white);
+		labelRPrivacyLaw.setForeground(Color.white);
+		labelRPackage.setForeground(Color.white);
+		labelRDescription.setForeground(Color.white);
+		labelRKeyword.setForeground(Color.white);
+		
+		lblImageLogo.setBounds(x2+514,height-270, 256, 256);
+		lblImagebBackground.setBounds(x2,height-270 , 512, 250);
+		
+		
+		if(radios.size()>0) radios.get(radios.size()-1).setSelected(true);
+		chBorder.setSelected(false);
 		chResize.setSelected(true);
 		chRoundedCorner.setSelected(true);
 
@@ -219,22 +274,69 @@ public class Frame implements ActionListener {
 		bColor.addActionListener(this);
 		bColor2.addActionListener(this);
 		
+		btRDescription.addActionListener(this);
+		btRKeyword.addActionListener(this);
+		btRPackage.addActionListener(this);
+		btRPrivacyLaw.addActionListener(this);
+		btRTitle.addActionListener(this);
+	
+		btRDescription.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRDescription.getText()), null);
+			  }
+		});
+		
+		btRKeyword.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRKeyword.getText()), null);
+			  }
+		});
+		
+		btRPackage.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRPackage.getText()), null);
+			  }
+		});
+		
+		btRPrivacyLaw.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRPrivacyLaw.getText()), null);
+			  }
+		});
+		
+		btRTitle.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRTitle.getText()), null);
+			  }
+		});
+		
+		
 		contain.add(bColor);
 		contain.add(bColor2);
-
-		
 		contain.add(lblImageLogo);
 		contain.add(lblImagebBackground);
-		
 		contain.add(labeltitre);
 		contain.add(chBorder);
 		contain.add(chRoundedCorner);
 		contain.add(chResize);
-
 		contain.add(chBorderBack);
 		contain.add(chRoundedCornerBack);
 		contain.add(chResizeBack);
-
 		contain.add(labelColumn);
 		contain.add(labelLink);
 		contain.add(txtLinkWikiHow);
@@ -249,10 +351,23 @@ public class Frame implements ActionListener {
 		contain.add(bExtraire);
 		contain.add(bCancel);
 
+		contain.add(btRDescription);
+		contain.add(btRKeyword);
+		contain.add(btRPackage);
+		contain.add(btRPrivacyLaw);
+		contain.add(btRTitle);
+
+		contain.add(labelRDescription);
+		contain.add(labelRKeyword);
+		contain.add(labelRPackage);
+		contain.add(labelRPrivacyLaw);
+		contain.add(labelRTitle);
+		
 		f.getContentPane().setBackground(Color.DARK_GRAY);
 		f.setSize(widthWindows, height);
 		f.setLayout(null);
 		f.setResizable(true);
+		f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -268,11 +383,10 @@ public class Frame implements ActionListener {
 		final List<Articles> articles = TraiterData.createHtmlFileFromList(list,articleName);
 		int x1 = widthData + 10;
 		int x2 = widthData + 80;
-		int y = 150;
 		for(int index = 0;index <articles.size();index++){
 			final int ct = index;
 			btTitres.add(new JButton(index+1+". "+articles.get(index).getTitle()));
-			btTitres.get(index).setBounds(x2, y, 400, 30);
+			btTitres.get(index).setBounds(x2, y2, 400, 30);
 			btTitres.get(index).addActionListener(new ActionListener()
 			{
 				  public void actionPerformed(ActionEvent e)
@@ -284,7 +398,7 @@ public class Frame implements ActionListener {
 			contain.add(btTitres.get(index));
 			contain.validate();contain.repaint();
 			btTxt.add(new JButton("txt"));
-			btTxt.get(index).setBounds(x1, y, 60, 30);
+			btTxt.get(index).setBounds(x1, y2, 60, 30);
 			btTxt.get(index).addActionListener(new ActionListener()
 			{
 				  public void actionPerformed(ActionEvent e)
@@ -295,7 +409,7 @@ public class Frame implements ActionListener {
 			});
 			contain.add(btTxt.get(index));
 			contain.validate();contain.repaint();
-			y=y+50;
+			y2=y2+50;
 		}
 	}
 
@@ -329,7 +443,7 @@ public class Frame implements ActionListener {
         	else
         	lblImagebBackground.setIcon(new ImageIcon(image2));
         } catch (IOException e) {
-        	e.printStackTrace();
+        	JOptionPane.showMessageDialog(null, "Error de creation du photo");
         }
         return image;
 	}
@@ -364,7 +478,7 @@ public class Frame implements ActionListener {
 			}
 
 		if (e.getActionCommand().equals("Cancel")) {
-			System.exit(0);
+			f.setVisible(false);
 		}
 		if (e.getActionCommand().equals("Extraire")) {
 			

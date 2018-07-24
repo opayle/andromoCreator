@@ -9,6 +9,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -56,12 +58,17 @@ public class TraiterImage {
 			width = width/2;
 			height = height/2;
 		}
+		try{
 		BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
 		Graphics2D g = resizedImage.createGraphics();
 		g.drawImage(originalImage, 0, 0, width, height, null);
 		g.dispose();
 			
 		return resizedImage;
+		} catch (java.lang.IllegalArgumentException e) {
+			JOptionPane.showMessageDialog(null, "Erreur dans URL du photo");
+		}
+		return null;
 	}
 	
 	public static BufferedImage toBufferedImage(Image img)

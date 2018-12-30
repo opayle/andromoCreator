@@ -152,7 +152,7 @@ public class TraiterData {
 		Map<String,String> map = new HashMap<String, String>();
 		try {
 
-			input = new FileInputStream("files/config.properties");
+			input = new FileInputStream("config.properties");
 
 			// load a properties file
 			prop.load(input);
@@ -179,7 +179,7 @@ public class TraiterData {
 	public static void changeValueOfProperties(String key,String newValue){
 		Properties properties = new Properties();
 		try {		
-			String propertiesFilePath = ("files/config.properties");
+			String propertiesFilePath = ("config.properties");
 			FileInputStream fis = new FileInputStream(propertiesFilePath);
 			properties.load(fis);
 			properties.setProperty(key,newValue);

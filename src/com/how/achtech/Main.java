@@ -27,7 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Main implements ActionListener {
 	private static final String PACK_SUFFIX = "com.";
-	private static final String PACK_PREFIX = ".achtech";
+	private static final String PACK_PREFIX = ".achtech007";
 	private String excelUri;
 	JFrame f = new JFrame();// creating instance of JFrame
 
@@ -92,11 +92,6 @@ public class Main implements ActionListener {
 
 	public static void main(String... strings) {
 		new Main();
-		// for(int i = 0;i<3;i++){
-		// Frame frame = new Frame("wiki"+i, "logoUrl"+i, "backgroundUrl"+i);
-		// frame.f.setVisible(true);
-		//
-		// }
 	}
 
 	@Override

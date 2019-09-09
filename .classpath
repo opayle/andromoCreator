@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/newpoi/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="D:/projects/exo-it/workspaces/WikiHow/lib/opencv-2.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.8-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

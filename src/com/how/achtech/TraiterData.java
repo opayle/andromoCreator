@@ -121,29 +121,29 @@ public class TraiterData {
 	}
 	
 	public static List<Articles> createHtmlFileFromList(List<Articles> list,String fileName) {
-		List<Articles> res = new ArrayList<Articles>();
+		List<Articles> articles = new ArrayList<Articles>();
 		try {
 			for (int i = 0; i < list.size(); i++) {
-				Articles a = list.get(i);
+				Articles article = list.get(i);
 				BufferedWriter writer;
 				//TODO : create file fileName+"\\"+(i+1)+". "+a.getTitle()+ ".txt"
-				Paths.get(fileName.trim()+"\\"+(i+1)+". "+a.getTitle().trim()+ ".txt");
-				writer = new BufferedWriter(new FileWriter(fileName.trim()+"\\"+(i+1)+". "+a.getTitle().trim()+ ".txt"));
+				Paths.get(fileName.trim()+"\\"+(i+1)+". "+article.getTitle().trim()+ ".txt");
+				writer = new BufferedWriter(new FileWriter(fileName.trim()+"\\"+(i+1)+". "+article.getTitle().trim()+ ".txt"));
 				StringBuilder str = new StringBuilder();
-				for (int j = 0;j<a.getDatas().size();j++) {
-					Chaptres data = a.getDatas().get(j);
-					str.append(fillModel(j+1,data.getSubtitle(), data.getSrc(),data.isVideo(), 
-							data.getText(), data.getLi()));
+				for (int j = 0;j<article.getDatas().size();j++) {
+					Chaptres chapter = article.getDatas().get(j);
+					str.append(fillModel(j+1,chapter.getSubtitle(), chapter.getSrc(),chapter.isVideo(), 
+							chapter.getText(), chapter.getLi()));
 				}
-				a.setTxt(str.toString());
-				res.add(a);
+				article.setTxt(str.toString());
+				articles.add(article);
 				writer.write(str.toString());
 				writer.close();
 			}
 		} catch (IOException e) {
 			System.err.print(e.getMessage());
 		}
-		return res;
+		return articles;
 	}
 	
 	public static Map<String,String> getPropoerties(){
@@ -152,7 +152,7 @@ public class TraiterData {
 		Map<String,String> map = new HashMap<String, String>();
 		try {
 
-			input = new FileInputStream("config.properties");
+			input = new FileInputStream("files/config.properties");
 
 			// load a properties file
 			prop.load(input);

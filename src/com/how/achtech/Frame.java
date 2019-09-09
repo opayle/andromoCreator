@@ -73,6 +73,9 @@ public class Frame implements ActionListener {
 	JLabel labelRDescription = new JLabel("Description : ");
 	JLabel labelRKeyword = new JLabel("Key Word");
 	JLabel labelRPrivacyLaw = new JLabel("Privacy");
+	JLabel labelRLicence = new JLabel("Licence");
+	JLabel labelRPub1 = new JLabel("Ads 1");
+	JLabel labelRPub2 = new JLabel("Ads 2");
 
 
 	JButton btRTitle = new JButton();
@@ -80,6 +83,9 @@ public class Frame implements ActionListener {
 	JButton btRDescription = new JButton();
 	JButton btRKeyword = new JButton();
 	JButton btRPrivacyLaw = new JButton();
+	JButton btRLicence = new JButton();
+	JButton btRPub1 = new JButton();
+	JButton btRPub2 = new JButton();
 
 	JCheckBox chResize = new JCheckBox("Resize 512*512");
 	JCheckBox chRoundedCorner = new JCheckBox("Rounded corner");
@@ -187,7 +193,7 @@ public class Frame implements ActionListener {
 		labelColumn.setBounds(widthData-10, 100, 10, height-145);
 		
 		//SECOND COLUMN
-		String privacyPolicy = "We care about your privacy and data security. We keep this app free by showing ads. We’ll partner with Google and use a unique identifier on your device to serve only non-personalized ads.";
+		String privacyPolicy = "We care about your privacy and data security. We keep this app free by showing ads. Weï¿½ll partner with Google and use a unique identifier on your device to serve only non-personalized ads.";
 		privacyPolicy += "\nFor information about how Google uses your mobile identifier please visit:";
 		privacyPolicy += "\nhttps://policies.google.com/technologies/partner-sites";
 		
@@ -196,8 +202,9 @@ public class Frame implements ActionListener {
 		btRPackage.setText(data.getPackageName());
 		btRDescription.setText(data.getDescription());
 		btRKeyword.setText(data.getKeyword());
-		
-		
+		btRLicence.setText(data.getLicence());
+		btRPub1.setText(data.getPub1());
+		btRPub2.setText(data.getPub2());
 		
 		
 		int x2 = widthData+10,wLabel = 100,wButton = 200,x3=x2+3*wLabel+20;
@@ -206,7 +213,6 @@ public class Frame implements ActionListener {
 		
 		labelRPrivacyLaw.setBounds(x3,y2,wLabel,30);
 		btRPrivacyLaw.setBounds(x3+wLabel+10,y2,wButton,30);
-		
 		
 		y2+=50;
 		labelRPackage.setBounds(x2,y2,wLabel,30);
@@ -219,14 +225,26 @@ public class Frame implements ActionListener {
 		labelRKeyword.setBounds(x2,y2,wLabel,30);
 		btRKeyword.setBounds(x2+110,y2,wButton,30);
 		
+		labelRLicence.setBounds(x3,y2,wLabel,30);
+		btRLicence.setBounds(x3+wLabel+10,y2,wButton,30);
+
 		y2+=50;
+		labelRPub1.setBounds(x2,y2,wLabel,30);
+		btRPub1.setBounds(x2+110,y2,wButton,30);
 		
+		labelRPub2.setBounds(x3,y2,wLabel,30);
+		btRPub2.setBounds(x3+wLabel+10,y2,wButton,30);
+
+		y2+=50;
 		
 		labelRTitle.setForeground(Color.white);
 		labelRPrivacyLaw.setForeground(Color.white);
 		labelRPackage.setForeground(Color.white);
 		labelRDescription.setForeground(Color.white);
 		labelRKeyword.setForeground(Color.white);
+		labelRLicence.setForeground(Color.white);
+		labelRPub1.setForeground(Color.white);
+		labelRPub2.setForeground(Color.white);
 		
 		lblImageLogo.setBounds(x2+514,height-270, 256, 256);
 		lblImagebBackground.setBounds(x2,height-270 , 512, 250);
@@ -279,7 +297,37 @@ public class Frame implements ActionListener {
 		btRPackage.addActionListener(this);
 		btRPrivacyLaw.addActionListener(this);
 		btRTitle.addActionListener(this);
-	
+		btRLicence.addActionListener(this);
+		btRPub1.addActionListener(this);
+		btRPub2.addActionListener(this);
+		
+		btRLicence.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRLicence.getText()), null);
+			  }
+		});
+		
+		btRPub1.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRPub1.getText()), null);
+			  }
+		});
+		
+		btRPub2.addActionListener(new ActionListener()
+		{
+			  public void actionPerformed(ActionEvent e)
+			  {
+				  Clipboard clipboard = getSystemClipboard();
+			        clipboard.setContents(new StringSelection(btRPub2.getText()), null);
+			  }
+		});
+		
 		btRDescription.addActionListener(new ActionListener()
 		{
 			  public void actionPerformed(ActionEvent e)
@@ -288,7 +336,7 @@ public class Frame implements ActionListener {
 			        clipboard.setContents(new StringSelection(btRDescription.getText()), null);
 			  }
 		});
-		
+
 		btRKeyword.addActionListener(new ActionListener()
 		{
 			  public void actionPerformed(ActionEvent e)
@@ -356,12 +404,18 @@ public class Frame implements ActionListener {
 		contain.add(btRPackage);
 		contain.add(btRPrivacyLaw);
 		contain.add(btRTitle);
-
+		contain.add(btRLicence);
+		contain.add(btRPub1);
+		contain.add(btRPub2);
+		
 		contain.add(labelRDescription);
 		contain.add(labelRKeyword);
 		contain.add(labelRPackage);
 		contain.add(labelRPrivacyLaw);
 		contain.add(labelRTitle);
+		contain.add(labelRLicence);
+		contain.add(labelRPub1);
+		contain.add(labelRPub2);
 		
 		f.getContentPane().setBackground(Color.DARK_GRAY);
 		f.setSize(widthWindows, height);

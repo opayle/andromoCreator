@@ -126,7 +126,7 @@ public class Main implements ActionListener {
 		int indexRow = 0;
 		try {
 			FileInputStream fichier = new FileInputStream(new File(excelUri));
-		       //créer une instance workbook qui fait référence au fichier xlsx 
+		       //crï¿½er une instance workbook qui fait rï¿½fï¿½rence au fichier xlsx 
 		       XSSFWorkbook wb = new XSSFWorkbook(fichier);
 		       XSSFSheet sheet = wb.getSheetAt(0);
 		       FormulaEvaluator formulaEvaluator = 
@@ -160,6 +160,9 @@ public class Main implements ActionListener {
 		    	   if(ligne.get(2) != null ) excel.setBackgroundUrl(ligne.get(2));
 		    	   if(ligne.get(3) != null ) excel.setDescription(ligne.get(3));
 		    	   if(ligne.get(4) != null ) excel.setKeyword(ligne.get(4).length()>80?ligne.get(4).substring(0, 80):ligne.get(4));
+		    	   if(ligne.get(6) != null ) excel.setPub1(ligne.get(5));
+		    	   if(ligne.get(7) != null ) excel.setPub2(ligne.get(6));
+		    	   if(ligne.get(5) != null ) excel.setLicence(ligne.get(7));
 		    	   list.add(excel);
 		       }
 		} catch (IOException e1) {

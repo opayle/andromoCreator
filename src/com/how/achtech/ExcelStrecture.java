@@ -15,6 +15,10 @@ public class ExcelStrecture {
 	private String backgroundUrl;
 	private String description;
 	private String keyword;
+	private String pub1;
+	private String pub2;
+	private String licence;
+	
 	public String getWikihowUrl() {
 		return wikihowUrl;
 	}
@@ -56,6 +60,24 @@ public class ExcelStrecture {
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	public String getPub1() {
+		return pub1;
+	}
+	public void setPub1(String pub1) {
+		this.pub1 = pub1;
+	}
+	public String getPub2() {
+		return pub2;
+	}
+	public void setPub2(String pub2) {
+		this.pub2 = pub2;
+	}
+	public String getLicence() {
+		return licence;
+	}
+	public void setLicence(String licence) {
+		this.licence = licence;
 	}
 
 	
